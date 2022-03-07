@@ -8,7 +8,7 @@ namespace Metody09_14GitHub
 {
     class Metody
     {
-        public static double Diskriminant(double a, double b, double c, out double x1, out double x2, out double d)
+        public static double Diskriminant(double a, double b, double c, out double x1, out double x2, out double d) //09
         {
             d = (b * b) - (4 * a * c);
             x1 = 0;
@@ -28,31 +28,50 @@ namespace Metody09_14GitHub
             }
             return d;
         }
-        public static bool ObsahujeCislici(string idk, out int cifSoucet, out int lichCifSoucet, out int sudCifSoucet)
+        public static bool ObsahujeCislici(string nejakyString, out int cifSoucet, out int lichSoucet, out int sudSoucet) //10
         {
-            bool obsahujeCislici = false;
+            bool obsahujeCisl = false;
             cifSoucet = 0;
-            lichCifSoucet = 0;
-            sudCifSoucet = 0;
-            for (int i = 0; i < idk.Length; ++i)
+            lichSoucet = 0;
+            sudSoucet = 0;
+            for (int i = 0; i < nejakyString.Length; ++i)
             {
-                if (Char.IsNumber(idk[i]))
+                if (Char.IsNumber(nejakyString[i]))
                 {
-                    obsahujeCislici = true;
-                    cifSoucet += int.Parse(idk[i].ToString());
-
-                    if (int.Parse(idk[i].ToString()) % 2 != 0)
+                    obsahujeCisl = true;
+                    cifSoucet += Convert.ToInt32(nejakyString[i].ToString());
+                    if (Convert.ToInt32(nejakyString[i].ToString()) % 2 != 0)
                     {
-                        lichCifSoucet += int.Parse(idk[i].ToString());
+                        lichSoucet += Convert.ToInt32(nejakyString[i].ToString());
                     }
-                    else if (int.Parse(idk[i].ToString()) % 2 == 0)
+                    else if (Convert.ToInt32(nejakyString[i].ToString()) % 2 == 0)
                     {
-                        sudCifSoucet += int.Parse(idk[i].ToString());
+                        sudSoucet += Convert.ToInt32(nejakyString[i].ToString());
                     }
                 }
             }
 
-            return obsahujeCislici;
+            return obsahujeCisl;
         }
+
+        public static int PocetSlov(string s, out string upravenyS)
+        {
+            string[] pole;
+            char[] separators = { ' ' };
+            int pocetSlov = 0;
+            pole = s.Split(separators,StringSplitOptions.RemoveEmptyEntries);
+            pocetSlov = pole.Length;
+            int i = 0;
+            while (i < s.Length)
+            {
+                if (s[i] > '0' && s[i] < '9')
+                {
+                    s = s.Remove(i, 1);
+                }
+                else ++i;
+            }
+            upravenyS = s;
+            return pocetSlov;
+        } 
     }
 }

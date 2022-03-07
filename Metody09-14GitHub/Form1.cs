@@ -19,9 +19,9 @@ namespace Metody09_14GitHub
 
         private void button1_Click(object sender, EventArgs e)
         {
-            double a = double.Parse(textBox1.Text);
-            double b = double.Parse(textBox2.Text);
-            double c = double.Parse(textBox3.Text);
+            double a = Convert.ToDouble(textBox1.Text);
+            double b = Convert.ToDouble(textBox2.Text);
+            double c = Convert.ToDouble(textBox3.Text);
             double x1, x2, d;
             Metody.Diskriminant(a, b, c, out x1, out x2, out d);
             if (d < 0) MessageBox.Show("Rovnice nema reseni v R");
@@ -31,16 +31,25 @@ namespace Metody09_14GitHub
 
         private void button2_Click(object sender, EventArgs e)
         {
-            string idk = textBox4.Text;
-            int cifSoucet = 0, lichCifSoucet = 0, sudCifSoucet = 0;
-            if (Metody.ObsahujeCislici(idk, out cifSoucet, out lichCifSoucet, out sudCifSoucet))
+            string s = textBox4.Text;
+            int cifSoucet = 0, lichSoucet = 0, sudSoucet = 0;
+            if (Metody.ObsahujeCislici(s, out cifSoucet, out lichSoucet, out sudSoucet))
             {
                 MessageBox.Show("Obsahuje číslici");
                 MessageBox.Show("Ciferný součet je " + cifSoucet);
-                MessageBox.Show("Ciferný součet lichých čísel je " + lichCifSoucet);
-                MessageBox.Show("Ciferný součet sudých čísel je " + sudCifSoucet);
+                MessageBox.Show("Ciferný součet lichých čísel je " + lichSoucet);
+                MessageBox.Show("Ciferný součet sudých čísel je " + sudSoucet);
             }
             else MessageBox.Show("Neobsahuje cifry");
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            string s = textBox5.Text;
+            string vystup;
+            int pocetSlov = Metody.PocetSlov(s, out vystup);
+            MessageBox.Show("Počet slov je: " + pocetSlov);
+            MessageBox.Show("Výsledný string je: " + vystup);
         }
     }
 }
