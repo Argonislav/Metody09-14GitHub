@@ -46,10 +46,10 @@ namespace Metody09_14GitHub
         private void button3_Click(object sender, EventArgs e)
         {
             string s = textBox5.Text;
-            string vystup;
-            int pocetSlov = Metody.PocetSlov(s, out vystup);
+            int pocetSlov = Metody.PocetSlov1(ref s);
             MessageBox.Show("Počet slov je: " + pocetSlov);
-            MessageBox.Show("Výsledný string je: " + vystup);
+            MessageBox.Show("Výsledný string je: " + s);
         }
+
     }
 }

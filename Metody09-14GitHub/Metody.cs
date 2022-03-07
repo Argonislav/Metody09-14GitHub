@@ -72,6 +72,58 @@ namespace Metody09_14GitHub
             }
             upravenyS = s;
             return pocetSlov;
-        } 
+        }
+        public static int PocetSlov1(ref string s)
+        {
+            string[] pole;
+            char[] separators = { ' ' };
+            int pocetSlov = 0;
+            pole = s.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+            pocetSlov = pole.Length;
+            int i = 0;
+            while (i < s.Length)
+            {
+                if (s[i] > '0' && s[i] < '9')
+                {
+                    s = s.Remove(i, 1);
+                }
+                else ++i;
+            }
+            return pocetSlov;
+        }
+        public static bool ObsahujeSlovo(string s, out string nejdelsiSlovo, out string nejkratsiSlovo)
+        {
+            string max = "", min = "";
+            int maxDelka = Int32.MinValue;
+            bool obsahujeSlovo = false;
+            string[] pole;
+            char[] separators = { ' ' };
+            pole = s.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 0; i < pole.Length; i++)
+            {
+                if (String.IsNullOrEmpty(s) && !obsahujeSlovo)
+                {
+                    obsahujeSlovo = false;
+                }
+                else
+                {
+                    obsahujeSlovo = true;
+                }
+            }
+            for (int j = 0; j < s.Length; j++)
+            {
+                if (pole[j].Length > maxDelka)
+                {
+                    max = pole[j];
+                }
+                else
+                {
+                    min = pole[j];
+                }
+            }
+            nejdelsiSlovo = max;
+            nejkratsiSlovo = min;
+            return obsahujeSlovo;
+        }
     }
 }
