@@ -91,39 +91,96 @@ namespace Metody09_14GitHub
             }
             return pocetSlov;
         }
-        public static bool ObsahujeSlovo(string s, out string nejdelsiSlovo, out string nejkratsiSlovo)
+        public static bool ObsahujeSlovo(string text, out string nejdelsiSlovo, out string nejkratsiSlovo)
         {
-            string max = "", min = "";
-            int maxDelka = Int32.MinValue;
-            bool obsahujeSlovo = false;
-            string[] pole;
+            bool obsahujeslovo = false;
+            nejdelsiSlovo = "";
+            nejkratsiSlovo = text;
+            int pocetMax = 0;
+            int pocetMin = text.Length;
             char[] separators = { ' ' };
-            pole = s.Split(separators, StringSplitOptions.RemoveEmptyEntries);
-            for (int i = 0; i < pole.Length; i++)
+            string[] poleSlov = text.Split(separators, StringSplitOptions.RemoveEmptyEntries);
+            foreach (string s in poleSlov)
             {
-                if (String.IsNullOrEmpty(s) && !obsahujeSlovo)
+                if (s.Length >= 1)
                 {
-                    obsahujeSlovo = false;
+                    obsahujeslovo = true;
+                }
+                if (s.Length > pocetMax)
+                {
+                    pocetMax = s.Length;
+                    nejdelsiSlovo = s;
+                }
+                if (s.Length < pocetMin)
+                {
+                    pocetMin = s.Length;
+                    nejkratsiSlovo = s;
+                }
+            }
+            return obsahujeslovo;
+        }
+        public static bool JeAlfanum(string s, out int pocetMalych, out int pocetVelkych, out int pocetJinych)
+        {
+            bool jealfanum = false;
+            pocetMalych = 0;
+            pocetVelkych = 0;
+            pocetJinych = 0;
+
+            for (int i = 0; i < s.Length; ++i)
+            {
+                if (Char.IsLetterOrDigit(s[i]))
+                {
+                    jealfanum = true;
+                    if (Char.IsUpper(s[i])) ++pocetVelkych;
+                    else if (Char.IsLower(s[i])) ++pocetMalych;
                 }
                 else
                 {
-                    obsahujeSlovo = true;
+                    ++pocetJinych;
+                    jealfanum = false;
                 }
             }
-            for (int j = 0; j < s.Length; j++)
+            return jealfanum;
+        }
+
+        public static bool Identicke (string s1, string s2, out int pocetOdli, out int indexPrvni)
+        {
+            indexPrvni = -1;
+            pocetOdli = 0;
+            string pKyblik;
+            bool jeIdenticke = false;
+            if (s1.Contains(s2) && s2.Contains(s1))
             {
-                if (pole[j].Length > maxDelka)
+                pocetOdli = 0;
+                indexPrvni = -1;
+                jeIdenticke = true;
+            }
+            else jeIdenticke = false;
+            if (s2.Length < s1.Length)
+            {
+                pKyblik = s1;
+                s1 = s2;
+                s2 = pKyblik;
+            }
+            for (int i = 0; i < s1.Length; i++)
+            {
+                if (s1[i] != s2[i] && indexPrvni == -1)
                 {
-                    max = pole[j];
+                    indexPrvni = i;
+                    pocetOdli++;
                 }
-                else
+                if (s1[i] != s2[i])
                 {
-                    min = pole[j];
+                    pocetOdli++;
                 }
             }
-            nejdelsiSlovo = max;
-            nejkratsiSlovo = min;
-            return obsahujeSlovo;
+            if (indexPrvni == -1)
+            {
+                indexPrvni = s1.Length;
+            }
+            int rozdil = s2.Length - s1.Length;
+            pocetOdli += rozdil;
+            return jeIdenticke;
         }
     }
 }
